@@ -99,7 +99,8 @@ if pkg:
     if use_TPU:
         from tflite_runtime.interpreter import load_delegate
 else:
-    from tensorflow.lite.python.interpreter import Interpreter
+    import tflite_runtime.interpreter as tflite
+    # from tensorflow.lite.python.interpreter import Interpreter
     if use_TPU:
         from tensorflow.lite.python.interpreter import load_delegate
 
@@ -135,7 +136,8 @@ if use_TPU:
                               experimental_delegates=[load_delegate('libedgetpu.so.1.0')])
     print(PATH_TO_CKPT)
 else:
-    interpreter = Interpreter(model_path=PATH_TO_CKPT)
+    # interpreter = Interpreter(model_path=PATH_TO_CKPT)
+    interpreter = tflite.Interpreter(model_path=PATH_TO_CKPT)
 
 interpreter.allocate_tensors()
 
